@@ -1,0 +1,22 @@
+name: Build NodeJS Artifact
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+      - run: yarn
+      - run: yarn build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/

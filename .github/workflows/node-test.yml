@@ -1,0 +1,36 @@
+name: Test NodeJS Code
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      MONGO_URI:
+        required: true
+      JWT_SECRET:
+        required: true
+    inputs:
+      JWT_ALGORITHM:
+        required: true
+        type: string
+      JWT_ISSUER:
+        required: true
+        type: string
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+      - run: yarn
+      - run: yarn build
+      - env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_ALGORITHM: ${{ inputs.JWT_ALGORITHM }}
+          JWT_ISSUER: ${{ inputs.JWT_ISSUER }}
+        run: yarn test
