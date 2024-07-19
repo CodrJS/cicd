@@ -1,0 +1,23 @@
+name: Publish Deno Code
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  publish:
+    if: github.event_name == 'release' && github.event.action == 'created'
+    name: Publish to JSR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: "1.x"
+      - name: Publish Module
+        run: deno publish

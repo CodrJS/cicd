@@ -1,0 +1,21 @@
+name: Test Deno Code
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: "1.x"
+      - name: Run Tests
+        run: deno test --coverage
+      - name: Coverage
+        run: deno coverage

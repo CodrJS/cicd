@@ -21,14 +21,19 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: "16.x"
           cache: "yarn"
-      - run: yarn
-      - run: yarn build
-      - env:
+      - name: Install Dependancies
+        run: yarn
+      - name: Build Code
+        run: yarn build
+      - name: Run Tests
+        env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_ALGORITHM: ${{ inputs.JWT_ALGORITHM }}

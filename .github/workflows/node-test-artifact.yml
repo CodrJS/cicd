@@ -9,14 +9,19 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           cache: "yarn"
-      - uses: actions/download-artifact@v3
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
-      - run: yarn
-      - run: yarn test
+      - name: Install Dependancies
+        run: yarn
+      - name: Run Tests
+        run: yarn test
