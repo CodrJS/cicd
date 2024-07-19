@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org
           # Defaults to the user or organization that owns the workflow file
           scope: "@codrjs"
-      - name: Install Dependancies
+      - name: Install Dependencies
         run: yarn
       - name: Download Artifact
         uses: actions/download-artifact@v4

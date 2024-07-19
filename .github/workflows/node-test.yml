@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "16.x"
           cache: "yarn"
-      - name: Install Dependancies
+      - name: Install Dependencies
         run: yarn
       - name: Build Code
         run: yarn build
